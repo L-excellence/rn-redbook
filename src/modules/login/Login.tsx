@@ -8,6 +8,7 @@ import {
   TextInput,
   LayoutAnimation,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -25,6 +26,7 @@ import icon_wx from '../../assets/icon_wx.png';
 import icon_qq from '../../assets/icon_qq.webp';
 import icon_close_modal from '../../assets/icon_close_modal.png';
 import {formatPhone, replaceBlank} from '../../utils/StringUtil';
+import UserStore from '../../store/UserStore';
 
 export default () => {
   // 分为 快捷登录 和 密码输入 登录
@@ -34,6 +36,20 @@ export default () => {
   const [phone, setPhone] = useState('');
   const [pwd, setPwd] = useState('');
   const navigation = useNavigation<StackNavigationProp<any>>();
+
+  const canLogin = phone.length === 13 && pwd.length && check;
+
+  const handleLogin = async () => {
+    if (!canLogin) return;
+    // Node 服务端内置的手机号用户： 18751609896 123456
+    UserStore.requestLogin(replaceBlank(phone), pwd, success => {
+      if (success) {
+        navigation.replace('HomeTab');
+      } else {
+        ToastAndroid.show('登录失败，请检查用户名和密码', ToastAndroid.LONG);
+      }
+    });
+  };
 
   const renderProtocol = () => {
     const styles = StyleSheet.create({
@@ -314,8 +330,6 @@ export default () => {
       },
     });
 
-    const canLogin = phone.length === 13 && pwd.length && check;
-
     return (
       <View style={styles.root}>
         <Text style={styles.pwdLogin}>密码登录</Text>
@@ -370,13 +384,7 @@ export default () => {
         <TouchableOpacity
           style={canLogin ? styles.loginButton : styles.loginButtonDisabled}
           activeOpacity={canLogin ? 0.7 : 1}
-          onPress={() => {
-            if (!canLogin) return;
-            // navigation.replace('HomeTab');
-            const purePhone = replaceBlank(phone);
-            console.log('purePhone: ', purePhone);
-            // TODO 去登录
-          }}>
+          onPress={handleLogin}>
           <Text style={styles.loginTxt}>登录</Text>
         </TouchableOpacity>
 

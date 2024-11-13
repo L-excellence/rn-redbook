@@ -3,18 +3,32 @@ import {StyleSheet, View, Image} from 'react-native';
 import icon_logo_main from '../../assets/icon_main_logo.png';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {load} from '../../utils/Storage';
 
 export default () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   useEffect(() => {
     setTimeout(() => {
-      startLogin();
-    }, 3000);
+      getUserInfo();
+    }, 2000);
   }, []);
+
+  const getUserInfo = async () => {
+    const catchUserInfo = await load('userInfo');
+    if (catchUserInfo) {
+      startHome();
+    } else {
+      startLogin();
+    }
+  };
 
   const startLogin = () => {
     navigation.replace('Login');
+  };
+
+  const startHome = () => {
+    navigation.replace('HomeTab');
   };
 
   return (
