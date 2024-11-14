@@ -131,28 +131,28 @@ export default () => {
         <BottomTab.Screen
           name="Home"
           component={Home}
-          options={{title: '首页'}}
+          options={{title: '首页', headerShown: false}}
         />
         <BottomTab.Screen
           name="Shop"
           component={Shop}
-          options={{title: '购物'}}
+          options={{title: '购物', headerShown: false}}
         />
         {/* 放置一个占位 Tab，实现 Publish 自定义功能 */}
         <BottomTab.Screen
           name="Publish"
           component={() => null}
-          options={{title: '发布'}}
+          options={{title: '发布', headerShown: false}}
         />
         <BottomTab.Screen
           name="Message"
           component={Message}
-          options={{title: '消息'}}
+          options={{title: '消息', headerShown: false}}
         />
         <BottomTab.Screen
           name="Mine"
           component={Mine}
-          options={{title: '我'}}
+          options={{title: '我', headerShown: false}}
         />
       </BottomTab.Navigator>
     </View>

@@ -3,7 +3,7 @@ import Apis from '../api/Apis.ts';
 
 const instance = axios.create({
   // 使用本机的 IP 地址
-  baseURL: 'http://192.168.2.130:7001',
+  baseURL: 'http://192.168.1.7:7001',
   timeout: 10 * 1000,
 });
 

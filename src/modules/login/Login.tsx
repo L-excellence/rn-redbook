@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import Toast from '../../components/widget/Toast';
 
 import icon_logo_main from '../../assets/icon_main_logo.png';
 import icon_unselected from '../../assets/icon_unselected.png';
@@ -46,7 +47,10 @@ export default () => {
       if (success) {
         navigation.replace('MainTab');
       } else {
-        ToastAndroid.show('登录失败，请检查用户名和密码', ToastAndroid.LONG);
+        // Android 使用它
+        // ToastAndroid.show('登录失败，请检查用户名和密码', ToastAndroid.LONG);
+        // 考虑到 Android 和 iOS 同样适用，使用第三方的 Toast 来完成
+        Toast.show('登录失败，请检查用户名和密码');
       }
     });
   };

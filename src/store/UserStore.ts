@@ -1,6 +1,7 @@
 import {flow} from 'mobx';
 import {request} from '../utils/request';
 import {save} from '../utils/Storage';
+import Loading from '../components/widget/Loading';
 
 class UserStore {
   userInfo: any;
@@ -11,6 +12,8 @@ class UserStore {
     pwd: string,
     callback?: (success: boolean) => void,
   ) {
+    // 显示转圈 loading（Android 和 iOS 通用）
+    Loading.show();
     try {
       const params = {
         name: phone,
@@ -28,6 +31,8 @@ class UserStore {
     } catch {
       this.userInfo = null;
       callback?.(false);
+    } finally {
+      Loading.hide();
     }
   });
 }
