@@ -13,7 +13,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import Welcome from './src/modules/welcome/Welcome';
 import Login from './src/modules/login/Login';
-import HomeTab from './src/modules/home/HomeTab';
+import MainTab from './src/modules/main/MainTab';
 
 const Stack = createStackNavigator();
 
@@ -50,8 +50,8 @@ function App(): React.JSX.Element {
             }}
           />
           <Stack.Screen
-            name="HomeTab"
-            component={HomeTab}
+            name="MainTab"
+            component={MainTab}
             options={{
               // 不显示内置的页面标题栏（我们自己实现）
               headerShown: false,

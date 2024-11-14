@@ -28,7 +28,7 @@ export default () => {
   };
 
   const startHome = () => {
-    navigation.replace('HomeTab');
+    navigation.replace('MainTab');
   };
 
   return (

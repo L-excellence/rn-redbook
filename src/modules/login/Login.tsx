@@ -44,7 +44,7 @@ export default () => {
     // Node 服务端内置的手机号用户： 18751609896 123456
     UserStore.requestLogin(replaceBlank(phone), pwd, success => {
       if (success) {
-        navigation.replace('HomeTab');
+        navigation.replace('MainTab');
       } else {
         ToastAndroid.show('登录失败，请检查用户名和密码', ToastAndroid.LONG);
       }
