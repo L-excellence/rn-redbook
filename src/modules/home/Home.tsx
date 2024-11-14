@@ -20,11 +20,14 @@ import ResizeImage from '../../components/ResizeImage';
 import Heart from '../../components/Heart';
 import TitleBar from './components/TitleBar';
 import CategoryList from './components/CategoryList';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 export default observer(() => {
   const store = useLocalStore(() => new HomeStore());
+  const navigation = useNavigation<StackNavigationProp<any>>();
 
   const categoryList = store.categoryList.filter(i => i.isAdd);
 
@@ -44,13 +47,19 @@ export default observer(() => {
     store.requestHomeList();
   };
 
+  const onArticlePress = (article: ArticleSimple) => {
+    navigation.push('ArticleDetail', {id: article.id});
+  };
+
   const Footer = () => {
     return <Text style={styles.footerTxt}>没有更多数据</Text>;
   };
 
   const renderItem = ({item, index}: {item: ArticleSimple; index: number}) => {
     return (
-      <View style={styles.item}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => onArticlePress(item)}>
         <ResizeImage uri={item.image} />
         <Text style={styles.titleTxt}>{item.title}</Text>
         <View style={styles.nameLayout}>
@@ -65,7 +74,7 @@ export default observer(() => {
           />
           <Text style={styles.countTxt}>{item.favoriteCount}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
